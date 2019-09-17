@@ -1,0 +1,31 @@
+.navbar-padding {
+   padding-top:60px;
+    margin-left:auto;
+	margin-right:auto;
+	width:98%;
+}
+.table td {
+   text-align: center;   
+}
+.column-padding{
+    margin-left:auto;
+	margin-right:auto;
+	width:98%;
+}
+.img-alteration{
+	max-width: 68%;
+	max-height: 68%;
+	display: block;
+    margin-left: auto;
+    margin-right: auto 
+}
+.goals{
+	background-color:#333;
+	color:white;
+}
+.panel{
+	background-color:#333;
+}
+.panel-body{
+	color:black;
+}

@@ -1,0 +1,562 @@
+
+
+<p class="text-center text-white">
+  
+     <a href="#monthlygoals"(click)="previousweekly()" *ngIf ="(nextweek-604800000)>=joindate" class="glyphicon glyphicon-chevron-left text-white"></a>
+    {{previousweek | date:'mediumDate'}} to {{nextweek | date:'mediumDate'}}
+    
+    <a href="#monthlygoals"(click)="nextweekly()" *ngIf ="(nextweek+604800000)<=(endweek+(6*604800000))" class="glyphicon glyphicon-chevron-right text-white"></a>
+    
+</p>
+<!-- panels if the data in the database exists -->
+<div *ngIf="(thisweek) && endweek > nextweek">
+    <!-- not sure if has been done -->
+    <div *ngIf = "complete1 == 'q' && goal1check == true">
+        <div class="panel panel-default text-center ">
+            <div (click)="goal1previousweek.show()" class="panel-body bg-question">
+               {{goal1}} 
+               <br><br>
+               <a href="#monthlygoals" (click)="goal1previousweek.show()" class="glyphicon glyphicon-question-sign text-black"></a>
+            </div>
+        </div>
+    </div>
+    <!-- success -->
+    <div *ngIf = "complete1 == 'y' && goal1check == true">
+        <div class="panel panel-success text-center ">
+            <div class="panel-body bg-success">
+               {{goal1}} 
+               <br><br>
+               <span class="glyphicon glyphicon-ok-sign"></span>
+            </div>
+        </div>
+    </div>
+    <!-- failure -->
+    <div *ngIf = "complete1 == 'n' && goal1check == true">
+        <div class="panel panel-danger text-center ">
+            <div class="panel-body bg-danger">
+               {{goal1}} 
+               <br><br>
+               <span class="glyphicon glyphicon-remove-sign"></span>
+            </div>
+        </div>
+    </div>
+     <!-- not sure if has been done -->
+    <div *ngIf = "complete2 == 'q' && goal2check == true">
+        <div class="panel panel-default text-center ">
+            <div (click)="goal2previousweek.show()" class="panel-body bg-question">
+               {{goal2}} 
+               <br><br>
+               <a href="#monthlygoals" (click)="goal2previousweek.show()"class="glyphicon glyphicon-question-sign text-black"></a>
+            </div>
+        </div>
+    </div>
+    <!-- success -->
+    <div *ngIf = "complete2 == 'y' && goal2check == true">
+        <div class="panel panel-success text-center ">
+            <div class="panel-body bg-success">
+               {{goal2}} 
+               <br><br>
+               <span class="glyphicon glyphicon-ok-sign"></span>
+            </div>
+        </div>
+    </div>
+    <!-- failure -->
+    <div *ngIf = "complete2 == 'n' && goal2check == true">
+        <div class="panel panel-danger text-center ">
+            <div class="panel-body bg-danger">
+               {{goal2}} 
+               <br><br>
+               <span class="glyphicon glyphicon-remove-sign"></span>
+            </div>
+        </div>
+    </div>
+     <!-- not sure if has been done -->
+    <div *ngIf = "complete3 == 'q' && goal3check == true">
+        <div class="panel panel-default text-center ">
+            <div (click)="goal3previousweek.show()" class="panel-body bg-question">
+               {{goal3}} 
+               <br><br>
+               <a href="#monthlygoals"(click)="goal3previousweek.show()" class="glyphicon glyphicon-question-sign text-black"></a>
+            </div>
+        </div>
+    </div>
+    <!-- success -->
+    <div *ngIf = "complete3 == 'y' && goal3check == true">
+        <div class="panel panel-success text-center ">
+            <div class="panel-body bg-success">
+               {{goal3}} 
+               <br><br>
+               <span class="glyphicon glyphicon-ok-sign"></span>
+            </div>
+        </div>
+    </div>
+    <!-- failure -->
+    <div *ngIf = "complete3 == 'n' && goal3check == true">
+        <div class="panel panel-danger text-center ">
+            <div class="panel-body bg-danger">
+               {{goal3}} 
+               <br><br>
+               <span class="glyphicon glyphicon-remove-sign"></span>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- current week -->
+<div class="showplus"*ngIf="(thisweek) && endweek <= nextweek">
+    <!-- unsure about goal -->
+    <div *ngIf = "complete1 == 'q' && goal1check == true">
+        <div class="panel panel-default text-center ">
+            <div (click)="goal1currentweek.show()" class="panel-body bg-question">
+               {{goal1}} 
+               <br><br>
+               <a href="#monthlygoals" (click)="goal1currentweek.show()" class="glyphicon glyphicon-question-sign text-black"></a>
+            </div>
+        </div>
+    </div>
+    <!-- success -->
+    <div *ngIf = "complete1 == 'y' && goal1check == true">
+        <div class="panel panel-success text-center ">
+            <div (click)="goal1currentweek.show()" class="panel-body bg-success">
+               {{goal1}} 
+               <br><br>
+               <a href="#monthlygoals" (click)="goal1currentweek.show()" class="glyphicon glyphicon-ok-sign text-black"></a>
+            </div>
+        </div>
+    </div>
+    <!-- failure -->
+    <div *ngIf = "complete1 == 'n' && goal1check == true">
+        <div class="panel panel-danger text-center ">
+            <div (click)="goal1currentweek.show()" class="panel-body bg-danger">
+               {{goal1}} 
+               <br><br>
+               <a href="#monthlygoals" (click)="goal1currentweek.show()" class="glyphicon glyphicon-remove-sign text-black"></a>
+            </div>
+        </div>
+    </div>
+       <!-- unsure about goal -->
+    <div *ngIf = "complete2 == 'q' && goal2check == true">
+        <div class="panel panel-default text-center ">
+            <div (click)="goal2currentweek.show()" class="panel-body bg-question">
+               {{goal2}} 
+               <br><br>
+               <a href="#monthlygoals" (click)="goal2currentweek.show()" class="glyphicon glyphicon-question-sign text-black"></a>
+            </div>
+        </div>
+    </div>
+    <!-- success -->
+    <div *ngIf = "complete2 == 'y' && goal2check == true">
+        <div class="panel panel-success text-center ">
+            <div (click)="goal2currentweek.show()" class="panel-body bg-success">
+               {{goal2}} 
+               <br><br>
+               <a href="#monthlygoals" (click)="goal2currentweek.show()" class="glyphicon glyphicon-ok-sign text-black"></a>
+            </div>
+        </div>
+    </div>
+    <!-- failure -->
+    <div *ngIf = "complete2 == 'n' && goal2check == true">
+        <div class="panel panel-danger text-center ">
+            <div (click)="goal2currentweek.show()" class="panel-body bg-danger">
+               {{goal2}} 
+               <br><br>
+               <a href="#monthlygoals" (click)="goal2currentweek.show()" class="glyphicon glyphicon-remove-sign text-black"></a>
+            </div>
+        </div>
+    </div>
+
+   <!-- unsure about goal -->
+    <div *ngIf = "complete3 == 'q' && goal3check == true">
+        <div class="panel panel-default text-center ">
+            <div (click)="goal3currentweek.show()" class="panel-body bg-question">
+               {{goal3}} 
+               <br><br>
+               <a href="#monthlygoals" (click)="goal3currentweek.show()" class="glyphicon glyphicon-question-sign text-black"></a>
+            </div>
+        </div>
+    </div>
+    <!-- success -->
+    <div *ngIf = "complete3 == 'y' && goal3check == true">
+        <div class="panel panel-success text-center ">
+            <div (click)="goal3currentweek.show()" class="panel-body bg-success">
+               {{goal3}} 
+               <br><br>
+               <a href="#monthlygoals" (click)="goal3currentweek.show()" class="glyphicon glyphicon-ok-sign text-black"></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- failure -->
+    <div *ngIf = "complete3 == 'n' && goal3check == true">
+        <div class="panel panel-danger text-center ">
+            <div (click)="goal3currentweek.show()" class="panel-body bg-danger">
+               {{goal3}} 
+               <br><br>
+               <a href="#monthlygoals" (click)="goal3currentweek.show()" class="glyphicon glyphicon-remove-sign text-black"></a>
+            </div>
+        </div>
+    </div>
+   <!-- <div class="text-center plus-sign" *ngIf ="(nextweek>=endweek)&&(!goal1check||!goal2check||!goal3check)&&thisweek">
+    <a href="#monthlygoals"(click)="addgoal.show()"  class="glyphicon glyphicon-plus-sign text-white text-center"></a>
+    </div> -->
+</div>
+<!-- new week or old week with no goals -->
+<div *ngIf="(!thisweek) && endweek <= nextweek">
+    <div class="panel well panel-default text-center">
+        <div class="panel-body">
+             <button type="button" (click)="addgoal.show()"class="btn btn-secondary">Add A Weekly Goal</button>
+        </div>
+    </div>
+</div>
+<div *ngIf="(!thisweek) && endweek > nextweek">
+    <div class="panel well panel-default text-center">
+        <div class="panel-body">
+             No Weekly Goals Were Added For This Week
+        </div>
+    </div>
+</div>
+<!--- Modals to Update Complete Goals from previousweeks -->
+<!-- previous week goal1 -->
+<div  class="modal fade"  bsModal #goal1previousweek="bs-modal"   tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <button type="button" class="close" (click)="goal1previousweek.hide()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                    </button>
+                    <p class="modal-title lead" id="myModalLabel">Weekly Goal</p>
+                </div>
+                <form method="post" role="form" #formGoal1='ngForm' (ngSubmit)="onSubmit(formGoal1,'goal1')"> 
+                <div class="modal-body text-center">
+                    
+                    <p class="lead" >{{goal1}}</p>
+                    <div>
+                        <div class="radio-inline" *ngFor="let prog of progession">
+                            <label class="radio-inline">
+                                <input type="radio" name="prog" [(ngModel)]="user.prog" 
+                                [value]="prog.value" required>
+                                {{prog.display}}
+                            </label>
+                        </div>
+                    </div>                                             
+                </div>
+                <div class="modal-footer">              
+                    <button type="button" class="btn btn-default" (click)="goal1previousweek.hide()">Close</button>
+                    <button type="submit" class="btn btn-primary"  (click)="goal1previousweek.hide()" [disabled]="!formGoal1.valid" >Save</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- previous week goal2 -->
+<div  class="modal fade"  bsModal #goal2previousweek="bs-modal"   tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <button type="button" class="close" (click)="goal2previousweek.hide()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                    </button>
+                    <p class="modal-title lead" id="myModalLabel">Weekly Goal</p>
+                </div>
+                <form method="post" role="form" #formGoal2='ngForm' (ngSubmit)="onSubmit(formGoal2,'goal2')"> 
+                <div class="modal-body text-center">
+                    
+                    <p class="lead" >{{goal2}}</p>
+                    <div>
+                        <div class="radio-inline" *ngFor="let prog of progession">
+                            <label class="radio-inline">
+                                <input type="radio" name="prog" [(ngModel)]="user.prog" 
+                                [value]="prog.value" required>
+                                {{prog.display}}
+                            </label>
+                        </div>
+                    </div>                                             
+                </div>
+                <div class="modal-footer">              
+                    <button type="button" class="btn btn-default" (click)="goal2previousweek.hide()">Close</button>
+                    <button type="submit" class="btn btn-primary"  (click)="goal2previousweek.hide()" [disabled]="!formGoal2.valid" >Save</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- previous week goal3 -->
+<div  class="modal fade"  bsModal #goal3previousweek="bs-modal"   tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <button type="button" class="close" (click)="goal3previousweek.hide()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                    </button>
+                    <p class="modal-title lead" id="myModalLabel">Weekly Goal</p>
+                </div>
+                <form method="post" role="form" #formGoal3='ngForm' (ngSubmit)="onSubmit(formGoal3,'goal3')"> 
+                <div class="modal-body text-center">
+                    
+                    <p class="lead" >{{goal3}}</p>
+                    <div>
+                        <div class="radio-inline" *ngFor="let prog of progession">
+                            <label class="radio-inline">
+                                <input type="radio" name="prog" [(ngModel)]="user.prog" 
+                                [value]="prog.value"required>
+                                {{prog.display}}
+                            </label>
+                        </div>
+                    </div>                                             
+                </div>
+                <div class="modal-footer">              
+                    <button type="button" class="btn btn-default" (click)="goal3previousweek.hide()">Close</button>
+                    <button type="submit" class="btn btn-primary"  (click)="goal3previousweek.hide()" [disabled]="!formGoal3.valid" >Save</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Adding Goals for the Current Week -->
+<div  class="modal fade"  bsModal #addgoal="bs-modal"   tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <button type="button" class="close" (click)="addgoal.hide()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                    </button>
+                    <p class="modal-title lead" id="myModalLabel">Add A Weekly Goal</p>
+                </div>
+                <form method="post" role="form"  #addGoals='ngForm' (ngSubmit)="onSubmitGoal(addGoals)"> 
+                <div class="modal-body text-center">
+                   
+                        <div class="input-group center">
+                            <span class="input-group-addon" id="message"><span class="glyphicon glyphicon-pencil"></span></span>
+                            <textarea maxlength="75" class="form-control" name="weeklygoal" rows="1" [(ngModel)]="weeklygoal" required></textarea>
+                        </div>                                  
+                </div>
+                <div class="modal-footer">   
+                        
+                    <button type="button" class="btn btn-default" (click)="addgoal.hide()">Close</button>
+                    <button type="submit" class="btn btn-primary"  (click)="addgoal.hide()" [disabled]="!addGoals.valid" >Save</button>
+   
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Current Week Edit -->
+<!-- goal1 -->
+<div  class="modal fade"  bsModal #goal1currentweek="bs-modal"   tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <button type="button" class="close" (click)="goal1currentweek.hide()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                    </button>
+                    <p class="modal-title lead" id="myModalLabel">Weekly Goal</p>
+                </div>
+                <form method="post" role="form" #formGoal4='ngForm' (ngSubmit)="onSubmit(formGoal4,'goal1')"> 
+                <div class="modal-body text-center">
+                    
+                    <p class="lead" >{{goal1}}</p>
+                    <div *ngIf="nextweek==endweek">
+                        <div class="radio-inline" *ngFor="let prog of currentprogession">
+                            <label class="radio-inline">
+                                <input type="radio" name="prog" [(ngModel)]="user.prog" 
+                                [value]="prog.value" required>
+                                {{prog.display}}
+                            </label>
+                        </div>
+                    </div>
+                    <div *ngIf="nextweek!=endweek">
+                        <div class="radio-inline" *ngFor="let prog of nextprogession">
+                            <label class="radio-inline">
+                                <input type="radio" name="prog" [(ngModel)]="user.prog" 
+                                [value]="prog.value" required>
+                                {{prog.display}}
+                            </label>
+                        </div>
+                    </div>                                             
+                </div>
+                <div class="modal-footer">              
+                    <button type="button" class="btn btn-default" (click)="goal1currentweek.hide()">Close</button>
+                    <button type="button" class="btn btn-default" (click)="goal1currentweek.hide()" (click)="goal1edit.show()">Edit Goal</button>
+                    <button type="submit" class="btn btn-primary"  (click)="goal1currentweek.hide()" [disabled]="!formGoal4.valid" >Save</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Edit Goal1 -->
+<div  class="modal fade"  bsModal #goal1edit="bs-modal"   tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <button type="button" class="close" (click)="goal1edit.hide()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                    </button>
+                    <p class="modal-title lead" id="myModalLabel">Edit Weekly Goal</p>
+                </div>
+                <form method="post" role="form" #editGoal1='ngForm' (ngSubmit)="onEditSubmitGoal(editGoal1,'goal1')"> 
+                <div class="modal-body text-center">
+                    <p class="lead" >{{goal1}}</p>
+                     <div class="input-group center">
+                            <span class="input-group-addon" id="message"><span class="glyphicon glyphicon-pencil"></span></span>
+                            <textarea maxlength="75" class="form-control" placeholder="" name="weeklygoal" rows="1" [(ngModel)]="weeklygoal" required></textarea>
+                    </div> 
+                                                              
+                </div>
+                <div class="modal-footer">              
+                    <button type="button" class="btn btn-default" (click)="goal1edit.hide()">Close</button>
+                    <button type="button" class="btn btn-danger" (click)="goal1edit.hide()" (click)="removegoal('goal1')">Remove Goal</button>
+                    <button type="submit" class="btn btn-primary"  (click)="goal1edit.hide()" [disabled]="!editGoal1.valid">Save</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- goal2 -->
+<div  class="modal fade"  bsModal #goal2currentweek="bs-modal"   tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <button type="button" class="close" (click)="goal2currentweek.hide()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                    </button>
+                    <p class="modal-title lead" id="myModalLabel">Weekly Goal</p>
+                </div>
+                <form method="post" role="form" #formGoal5='ngForm' (ngSubmit)="onSubmit(formGoal5,'goal2')"> 
+                <div class="modal-body text-center">
+                    
+                    <p class="lead" >{{goal2}}</p>
+                    <div *ngIf="nextweek==endweek">
+                        <div class="radio-inline" *ngFor="let prog of currentprogession">
+                            <label class="radio-inline">
+                                <input type="radio" name="prog" [(ngModel)]="user.prog" 
+                                [value]="prog.value" required>
+                                {{prog.display}}
+                            </label>
+                        </div>
+                    </div>
+                    <div *ngIf="nextweek!=endweek">
+                        <div class="radio-inline" *ngFor="let prog of nextprogession">
+                            <label class="radio-inline">
+                                <input type="radio" name="prog" [(ngModel)]="user.prog" 
+                                [value]="prog.value" required>
+                                {{prog.display}}
+                            </label>
+                        </div>
+                    </div>                                             
+                </div>
+                <div class="modal-footer">              
+                    <button type="button" class="btn btn-default" (click)="goal2currentweek.hide()">Close</button>
+                    <button type="button" class="btn btn-default" (click)="goal2currentweek.hide()" (click)="goal2edit.show()">Edit Goal</button>
+                    <button type="submit" class="btn btn-primary"  (click)="goal2currentweek.hide()" [disabled]="!formGoal5.valid" >Save</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Edit Goal2 -->
+<div  class="modal fade"  bsModal #goal2edit="bs-modal"   tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <button type="button" class="close" (click)="goal2edit.hide()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                    </button>
+                    <p class="modal-title lead" id="myModalLabel">Edit Weekly Goal</p>
+                </div>
+                <form method="post" role="form" #editgoal2='ngForm' (ngSubmit)="onEditSubmitGoal(editgoal2,'goal2')"> 
+                <div class="modal-body text-center">
+                    <p class="lead" >{{goal2}}</p>
+                     <div class="input-group center">
+                            <span class="input-group-addon" id="message"><span class="glyphicon glyphicon-pencil"></span></span>
+                            <textarea maxlength="75" class="form-control" placeholder="" name="weeklygoal" rows="1" [(ngModel)]="weeklygoal" required></textarea>
+                    </div> 
+                                                              
+                </div>
+                <div class="modal-footer">              
+                    <button type="button" class="btn btn-default" (click)="goal2edit.hide()">Close</button>
+                    <button type="button" class="btn btn-danger" (click)="goal2edit.hide()" (click)="removegoal('goal2')">Remove Goal</button>
+                    <button type="submit" class="btn btn-primary"  (click)="goal2edit.hide()" [disabled]="!editgoal2.valid">Save</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- goal3 -->
+<div  class="modal fade"  bsModal #goal3currentweek="bs-modal"   tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <button type="button" class="close" (click)="goal3currentweek.hide()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                    </button>
+                    <p class="modal-title lead" id="myModalLabel">Weekly Goal</p>
+                </div>
+                <form method="post" role="form" #formgoal6='ngForm' (ngSubmit)="onSubmit(formgoal6,'goal3')"> 
+                <div class="modal-body text-center">
+                    
+                    <p class="lead" >{{goal3}}</p>
+                    <div *ngIf="nextweek==endweek">
+                        <div class="radio-inline" *ngFor="let prog of currentprogession">
+                            <label class="radio-inline">
+                                <input type="radio" name="prog" [(ngModel)]="user.prog" 
+                                [value]="prog.value" required>
+                                {{prog.display}}
+                            </label>
+                        </div>
+                    </div>
+                    <div *ngIf="nextweek!=endweek">
+                        <div class="radio-inline" *ngFor="let prog of nextprogession">
+                            <label class="radio-inline">
+                                <input type="radio" name="prog" [(ngModel)]="user.prog" 
+                                [value]="prog.value" required>
+                                {{prog.display}}
+                            </label>
+                        </div>
+                    </div>                                              
+                </div>
+                <div class="modal-footer">              
+                    <button type="button" class="btn btn-default" (click)="goal3currentweek.hide()">Close</button>
+                    <button type="button" class="btn btn-default" (click)="goal3currentweek.hide()" (click)="goal3edit.show()">Edit Goal</button>
+                    <button type="submit" class="btn btn-primary"  (click)="goal3currentweek.hide()" [disabled]="!formgoal6.valid" >Save</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Edit Goal3 -->
+<div  class="modal fade"  bsModal #goal3edit="bs-modal"   tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <button type="button" class="close" (click)="goal3edit.hide()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                    </button>
+                    <p class="modal-title lead" id="myModalLabel">Edit Weekly Goal</p>
+                </div>
+                <form method="post" role="form" #editgoal3='ngForm' (ngSubmit)="onEditSubmitGoal(editgoal3,'goal3')"> 
+                <div class="modal-body text-center">
+                    <p class="lead" >{{goal3}}</p>
+                     <div class="input-group center">
+                            <span class="input-group-addon" id="message"><span class="glyphicon glyphicon-pencil"></span></span>
+                            <textarea maxlength="75" class="form-control" placeholder="" name="weeklygoal" rows="1" [(ngModel)]="weeklygoal" required></textarea>
+                    </div> 
+                                                              
+                </div>
+                <div class="modal-footer">              
+                    <button type="button" class="btn btn-default" (click)="goal3edit.hide()">Close</button>
+                    <button type="button" class="btn btn-danger" (click)="goal3edit.hide()" (click)="removegoal('goal3')">Remove Goal</button>
+                    <button type="submit" class="btn btn-primary"  (click)="goal3edit.hide()" [disabled]="!editgoal3.valid">Save</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

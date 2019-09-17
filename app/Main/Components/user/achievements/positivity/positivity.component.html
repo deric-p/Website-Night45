@@ -1,0 +1,85 @@
+<p></p>
+<br>
+<div *ngIf="(positivity)">
+    <div class="panel well panel-default text-center">
+        <div class="panel-body">
+             <button type="button" id="new-night-btn"  (click)="addpos.show()"class="btn btn-primary">Add Something Positive Currently In Your Life</button>
+        </div>
+    </div>
+</div>
+<!-- existing positivity -->
+<div class="showplus" *ngIf="(!positivity)">
+        <table class="table table-hover">
+            <tr  *ngFor="let pos of currentpos">
+            <td  *ngIf="pos.show == true" (click)="posedit.show()" (click)="posPicker(pos.name)">{{pos.pos}}</td>
+            </tr>
+        </table>
+    <div class="text-center plus-sign" *ngIf ="(!pos1check||!pos2check||!pos3check||!pos4check||!pos5check)&&!positivity">
+    <a href="#"(click)="addpos.show()"  class="glyphicon glyphicon-plus-sign text-black text-center"></a>
+    </div>
+</div>
+ 
+
+<!-- Adding Positivity -->
+<div  class="modal fade"  bsModal #addpos="bs-modal"   tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <button type="button" class="close" (click)="addpos.hide()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                    </button>
+                    <p class="modal-title lead" id="myModalLabel">Add A Positive</p>
+                </div>
+                <form method="post" role="form"  #addposs='ngForm' (ngSubmit)="onSubmitGoal(addposs)"> 
+                <div class="modal-body text-center">
+                   
+                        <div class="input-group center">
+                            <span class="input-group-addon" id="message"><span class="glyphicon glyphicon-pencil"></span></span>
+                            <textarea maxlength="40" class="form-control" name="pos" rows="1" [(ngModel)]="pos" required></textarea>
+                        </div>                                  
+                </div>
+                <div class="modal-footer">   
+                        
+                    <button type="button" class="btn btn-default" (click)="addpos.hide()">Close</button>
+                    <button type="submit" class="btn btn-primary"  (click)="addpos.hide()" [disabled]="!addposs.valid" >Save</button>
+   
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit poss -->
+<div  class="modal fade"  bsModal #posedit="bs-modal"   tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <button type="button" class="close" (click)="posedit.hide()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                    </button>
+                    <p class="modal-title lead" id="myModalLabel">Edit A Positive</p>
+                </div>
+                <form method="post" role="form" #editpos='ngForm' (ngSubmit)="onEditSubmitGoal(editpos,temppos)"> 
+                <div class="modal-body text-center">
+                    <p class="lead" *ngIf="temppos == 'pos1'">{{pos1}}</p>
+                    <p class="lead" *ngIf="temppos == 'pos2'">{{pos2}}</p>
+                    <p class="lead" *ngIf="temppos == 'pos3'">{{pos3}}</p>
+                    <p class="lead" *ngIf="temppos == 'pos4'">{{pos4}}</p>
+                    <p class="lead" *ngIf="temppos == 'pos5'">{{pos5}}</p>
+                     <div class="input-group center">
+                            <span class="input-group-addon" id="message"><span class="glyphicon glyphicon-pencil"></span></span>
+                            <textarea maxlength="40" class="form-control" placeholder="" name="pos" rows="1" [(ngModel)]="pos" required></textarea>
+                    </div> 
+                                                              
+                </div>
+                <div class="modal-footer">              
+                    <button type="button" class="btn btn-default" (click)="posedit.hide()">Close</button>
+                    <button type="button" class="btn btn-danger" (click)="posedit.hide()" (click)="removePositivity(temppos)">Remove Positive</button>
+                    <button type="submit" class="btn btn-primary"  (click)="posedit.hide()" [disabled]="!editpos.valid">Save</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

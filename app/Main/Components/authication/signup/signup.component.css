@@ -1,0 +1,31 @@
+.headtext{
+    font-family:'castorgateregular';
+    font-size: 400%;
+}
+.header-text{
+    font-family:'fabriknormal';
+    font-size: 500%;
+}
+.errortext{
+
+    display:inline-block;
+    color: red;
+    font-size: 85%;
+    text-align: center;
+
+}
+
+.text-black{
+    color:black;
+}
+.bg-signup{
+    
+    background-color:#F9F9F9;
+ 
+    padding:50px;
+}
+.bg-footer{
+
+ 
+    padding:10px;
+}

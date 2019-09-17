@@ -1,0 +1,554 @@
+<div class="tasks">
+<div id ='nightlytasks' class="column-padding " data-toggle="#my-navbar">
+    <h1 class='text-center headerfont'>Nightly Tasks</h1>
+    <p class='text-center'>
+        <a href="#nightlygoals"(click)="previousday()" *ngIf ="((joindate < (daycounter-daynumber)))" class="glyphicon glyphicon-chevron-left text-white"></a>
+        {{(daycounter-daynumber)|date}} to {{(daycounter+daynumber)|date}}
+        <a href="#nightlygoals"(click)="nextday()" *ngIf ="(daycounter+daynumber)<=(currentday+(13*daynumber))" class="glyphicon glyphicon-chevron-right text-white"></a>
+        </p>  
+        <br> 
+    <div class="row">
+        <div class="col-sm-4">
+            <img *ngIf="((currentday-daynumber) == (daycounter-daynumber))" src="./img/nightlytask/Lastnight-01.png"  class="img-circle img-alteration">
+            <img *ngIf="((currentday-daynumber) > (daycounter-daynumber))" src="./img/nightlytask/Pastnight-01.png"  class="img-circle img-alteration">
+            <img *ngIf="(currentday) == (daycounter-daynumber)" src="./img/nightlytask/Today-01.png" class="img-circle img-alteration">
+            <img *ngIf="(currentday+daynumber) == (daycounter-daynumber)" src="./img/nightlytask/Tomorrow-01.png" class="img-circle img-alteration">
+            <img *ngIf="(currentday+daynumber) < (daycounter-daynumber)" src="./img/nightlytask/comingnight-01.png" class="img-circle img-alteration">
+            <br>
+            <div class="panel panel-inverse">
+                <div class="panel-body">
+                    <p class='text-center text-white'>{{(daycounter-daynumber)|date:'fullDate'}}</p>
+                    <br>
+                    <!-- goals added yesturday -->
+                    <div *ngIf="(thisday3)&& ((currentday-daynumber) >= (daycounter-daynumber))">
+                        <div *ngFor="let goals of currentgoals3">
+                            <!-- question -->
+                            <div *ngIf = "goals.status == 'q' && goals.show == true">
+                                <div class="panel panel-default text-center ">
+                                    <div (click)="oldweek.show()"(click)="daypicker(goals.name)" class="panel-body bg-question">
+                                    {{goals.goal}}
+                                    <br><br>
+                                    <a href="#nightlygoals" (click)="oldweek.show()" (click)="daypicker(goals.name)" class="glyphicon glyphicon-question-sign text-black"></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- success-->
+                            <div *ngIf = "goals.status == 'y' && goals.show == true">
+                                <div class="panel panel-success text-center ">
+                                    <div  class="panel-body bg-success">
+                                {{goals.goal}}
+                                    <br><br>
+                                    <span class="glyphicon glyphicon-ok-sign"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- failed -->
+                            <div *ngIf = "goals.status == 'n' && goals.show == true">
+                                <div class="panel panel-danger text-center ">
+                                    <div class="panel-body bg-danger">
+                                    {{goals.goal}}
+                                    <br><br>
+                                    <span class="glyphicon glyphicon-remove-sign"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <!-- no Goals Added For Previous Day -->
+                    <div *ngIf="(!thisday3) && ((currentday-daynumber) >= (daycounter-daynumber))">
+                        <div class="panel well-bg well panel-default text-center">
+                            <div class="panel-body">
+                                No Nightly Tasks Were Added For This Night
+                            </div>
+                        </div>
+                    </div>
+                    <!-- add goals for coming or future days-->
+                    <div class="showplus"*ngIf="(thisday3)&&((daycounter-daynumber)>(currentday-daynumber))">
+                    
+                        <div *ngFor="let goals of currentgoals3">
+
+                            <!-- question -->
+                            <div *ngIf = "goals.status == 'q' && goals.show == true">
+                                <div class="panel panel-default text-center ">
+                                    <div (click)="currentweek.show()"(click)="daypicker(goals.name)" class="panel-body bg-question">
+                                    {{goals.goal}}
+                                    <br><br>
+                                    <a href="#nightlygoals" (click)="currentweek.show()" (click)="daypicker(goals.name)"class="glyphicon glyphicon-question-sign text-black"></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- success-->
+                            <div *ngIf = "goals.status == 'y' && goals.show == true">
+                                <div class="panel panel-success text-center ">
+                                    <div (click)="currentweek.show()" (click)="daypicker(goals.name)"class="panel-body bg-success">
+                                    {{goals.goal}}
+                                    <br><br>
+                                    <a href="#nightlygoals" (click)="currentweek.show()"(click)="daypicker(goals.name)" class="glyphicon glyphicon-ok-sign text-black"></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- failed -->
+                            <div *ngIf = "goals.status == 'n' && goals.show == true">
+                                <div class="panel panel-danger text-center ">
+                                    <div (click)="currentweek.show()" (click)="daypicker(goals.name)"class="panel-body bg-danger">
+                                    {{goals.goal}}
+                                    <br><br>
+                                    <a href="#nightlygoals" (click)="currentweek.show()"(click)="daypicker(goals.name)" class="glyphicon glyphicon-remove-sign text-black"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                  <!--  <div class="text-center plus-sign" *ngIf ="((daycounter-daynumber)>=(currentday))&&(!goal11check||!goal12check||!goal13check)&&thisday3">
+                        <a href="#nightlygoals"(click)="addgoal.show()" (click)="checkgoalday3()" class="glyphicon glyphicon-plus-sign text-white text-center"></a>
+                    </div> -->
+                    </div>
+                    <!-- button to add goals -->
+                    <div *ngIf="(!thisday3) && ((daycounter-daynumber) >= (currentday))">
+                        <div class="panel well-bg well panel-default text-center">
+                            <div class="panel-body">
+                                <button type="button"  (click)="addgoal.show()"(click)="daypicker('goal11')"class="btn btn-secondary">Add A Nightly Task</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <img *ngIf="currentday == daycounter" src="./img/nightlytask/Today-01.png" class="img-circle img-alteration">
+            <img *ngIf="((currentday-daynumber) == (daycounter))" src="./img/nightlytask/Lastnight-01.png"  class="img-circle img-alteration">
+            <img *ngIf="((currentday-daynumber) > (daycounter))" src="./img/nightlytask/Pastnight-01.png"  class="img-circle img-alteration" >
+            <img *ngIf="(currentday+daynumber) == (daycounter)" src="./img/nightlytask/Tomorrow-01.png" class="img-circle img-alteration">
+            <img *ngIf="(currentday+daynumber) < (daycounter)" src="./img/nightlytask/comingnight-01.png" class="img-circle img-alteration">
+            <br>
+            <div class="panel panel-inverse">
+                <div class="panel-body">
+                    <p class='text-center text-white'>{{(daycounter)|date:'fullDate'}}</p>
+                    <br>
+                    <!-- no Goals Added For Previous Day -->
+                    <div *ngIf="(!thisday1)&&(daycounter<currentday)">
+                        <div class="panel well-bg well panel-default text-center">
+                            <div class="panel-body">
+                                No Nightly Tasks Were Added For This Night
+                            </div>
+                        </div>
+                    </div>
+                    <!-- goals added Another Night -->
+                    <div *ngIf="(thisday1)&&(daycounter<currentday)">
+                        <div *ngFor="let goals of currentgoals1">
+                            <!-- question -->
+                            <div *ngIf = "goals.status == 'q' && goals.show == true">
+                                <div class="panel panel-default text-center ">
+                                    <div (click)="oldweek.show()"(click)="daypicker(goals.name)" class="panel-body bg-question">
+                                    {{goals.goal}}
+                                    <br><br>
+                                    <a href="#nightlygoals" (click)="oldweek.show()" (click)="daypicker(goals.name)" class="glyphicon glyphicon-question-sign text-black"></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- success-->
+                            <div *ngIf = "goals.status == 'y' && goals.show == true">
+                                <div class="panel panel-success text-center ">
+                                    <div  class="panel-body bg-success">
+                                {{goals.goal}}
+                                    <br><br>
+                                    <span class="glyphicon glyphicon-ok-sign"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- failed -->
+                            <div *ngIf = "goals.status == 'n' && goals.show == true">
+                                <div class="panel panel-danger text-center ">
+                                    <div class="panel-body bg-danger">
+                                    {{goals.goal}}
+                                    <br><br>
+                                    <span class="glyphicon glyphicon-remove-sign"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <!-- Add New Goals Current Day-->
+                    <div *ngIf="(!thisday1) && daycounter >= currentday">
+                        <div class="panel well-bg well panel-default text-center">
+                            <div class="panel-body">
+                                <button type="button"  (click)="addgoal.show()"(click)="daypicker('goal1')"class="btn btn-secondary">Add A Nightly Task</button>
+                            </div>
+                        </div>
+                    </div>
+                <!-- Update Existing Goals current Day -->
+                    <div class="showplus"*ngIf="(thisday1)&&(daycounter>=currentday)">
+                    
+                        <div *ngFor="let goals of currentgoals1">
+                    
+
+                            <!-- question -->
+                            <div *ngIf = "goals.status == 'q' && goals.show == true">
+                                <div class="panel panel-default text-center ">
+                                    <div (click)="currentweek.show()"(click)="daypicker(goals.name)" class="panel-body bg-question">
+                                    {{goals.goal}}
+                                    <br><br>
+                                    <a href="#nightlygoals" (click)="currentweek.show()" (click)="daypicker(goals.name)"class="glyphicon glyphicon-question-sign text-black"></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- success-->
+                            <div *ngIf = "goals.status == 'y' && goals.show == true">
+                                <div class="panel panel-success text-center ">
+                                    <div (click)="currentweek.show()" (click)="daypicker(goals.name)"class="panel-body bg-success">
+                                    {{goals.goal}}
+                                    <br><br>
+                                    <a href="#nightlygoals" (click)="currentweek.show()"(click)="daypicker(goals.name)" class="glyphicon glyphicon-ok-sign text-black"></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- failed -->
+                            <div *ngIf = "goals.status == 'n' && goals.show == true">
+                                <div class="panel panel-danger text-center ">
+                                    <div (click)="currentweek.show()" (click)="daypicker(goals.name)"class="panel-body bg-danger">
+                                    {{goals.goal}}
+                                    <br><br>
+                                    <a href="#nightlygoals" (click)="currentweek.show()"(click)="daypicker(goals.name)" class="glyphicon glyphicon-remove-sign text-black"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                  <!--  <div class="text-center plus-sign" *ngIf ="(daycounter>=currentday)&&(!goal1check||!goal2check||!goal3check)&&thisday1">
+                        <a href="#nightlygoals"(click)="addgoal.show()" (click)="checkgoalday1()" class="glyphicon glyphicon-plus-sign text-white text-center"></a>
+                    </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <img *ngIf="((currentday + daynumber) == (daycounter+daynumber))"src="./img/nightlytask/Tomorrow-01.png"  class="img-circle img-alteration">
+            <img *ngIf="(currentday) == (daycounter+daynumber)" src="./img/nightlytask/Today-01.png" class="img-circle img-alteration">
+            <img *ngIf="((currentday-daynumber) == (daycounter + daynumber))" src="./img/nightlytask/Lastnight-01.png"  class="img-circle img-alteration">
+            <img *ngIf="((currentday-daynumber) > (daycounter + daynumber))" src="./img/nightlytask/Pastnight-01.png"  class="img-circle img-alteration">
+            <img *ngIf="(currentday+daynumber) < (daycounter+daynumber)" src="./img/nightlytask/comingnight-01.png" class="img-circle img-alteration">
+            <br>
+            <div class="panel panel-inverse">
+                <div class="panel-body">
+                    <p class='text-center text-white'>{{(daycounter + daynumber)|date:'fullDate'}}</p>
+                    <br>
+                    <!-- Add New Goals Current Day-->
+                    <div *ngIf="(!thisday2) && (daycounter+daynumber) >= currentday">
+                        <div class="panel well-bg well panel-default text-center">
+                            <div class="panel-body">
+                                <button type="button"  (click)="addgoal.show()"(click)="daypicker('goal6')"class="btn btn-secondary">Add A Nightly Task</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    <!-- no Goals Added For Previous Day -->
+                    <div *ngIf="(!thisday2)&&((currentday) > (daycounter+daynumber))">
+                        <div class="panel well-bg well panel-default text-center">
+                            <div class="panel-body">
+                                No Nightly Tasks Were Added For This Night
+                            </div>
+                        </div>
+                    </div>
+                    <!-- goals added Another Night -->
+                    <div *ngIf="(thisday2)&&((currentday) > (daycounter+daynumber))">
+                        <div *ngFor="let goals of currentgoals2">
+                            <!-- question -->
+                            <div *ngIf = "goals.status == 'q' && goals.show == true">
+                                <div class="panel panel-default text-center ">
+                                    <div (click)="oldweek.show()"(click)="daypicker(goals.name)" class="panel-body bg-question">
+                                    {{goals.goal}}
+                                    <br><br>
+                                    <a href="#nightlygoals" (click)="oldweek.show()" (click)="daypicker(goals.name)" class="glyphicon glyphicon-question-sign text-black"></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- success-->
+                            <div *ngIf = "goals.status == 'y' && goals.show == true">
+                                <div class="panel panel-success text-center ">
+                                    <div  class="panel-body bg-success">
+                                {{goals.goal}}
+                                    <br><br>
+                                    <span class="glyphicon glyphicon-ok-sign"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- failed -->
+                            <div *ngIf = "goals.status == 'n' && goals.show == true">
+                                <div class="panel panel-danger text-center ">
+                                    <div class="panel-body bg-danger">
+                                    {{goals.goal}}
+                                    <br><br>
+                                    <span class="glyphicon glyphicon-remove-sign"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+                <!-- Update Existing Goals current Day -->
+                    <div class="showplus"*ngIf="(thisday2)&&((daycounter==currentday)||((daycounter+daynumber)>=currentday))">
+                    
+                        <div *ngFor="let goals of currentgoals2">
+                    
+
+                            <!-- question -->
+                            <div *ngIf = "goals.status == 'q' && goals.show == true">
+                                <div class="panel panel-default text-center ">
+                                    <div (click)="currentweek.show()"(click)="daypicker(goals.name)" class="panel-body bg-question">
+                                    {{goals.goal}}
+                                    <br><br>
+                                    <a href="#nightlygoals" (click)="currentweek.show()" (click)="daypicker(goals.name)"class="glyphicon glyphicon-question-sign text-black"></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- success-->
+                            <div *ngIf = "goals.status == 'y' && goals.show == true">
+                                <div class="panel panel-success text-center ">
+                                    <div (click)="currentweek.show()" (click)="daypicker(goals.name)"class="panel-body bg-success">
+                                    {{goals.goal}}
+                                    <br><br>
+                                    <a href="#nightlygoals" (click)="currentweek.show()"(click)="daypicker(goals.name)" class="glyphicon glyphicon-ok-sign text-black"></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- failed -->
+                            <div *ngIf = "goals.status == 'n' && goals.show == true">
+                                <div class="panel panel-danger text-center ">
+                                    <div (click)="currentweek.show()" (click)="daypicker(goals.name)"class="panel-body bg-danger">
+                                    {{goals.goal}}
+                                    <br><br>
+                                    <a href="#nightlygoals" (click)="currentweek.show()"(click)="daypicker(goals.name)" class="glyphicon glyphicon-remove-sign text-black"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                       <!-- <div class="text-center plus-sign text-white" *ngIf ="((daycounter==currentday)||((daycounter+daynumber)>=currentday))&&(!goal6check||!goal7check||!goal8check)&&thisday2">
+                            <a href="#nightlygoals"(click)="addgoal.show()" (click)="checkgoalday2()"  class="glyphicon glyphicon-plus-sign text-white text-center"></a>
+                        </div> -->
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- addgoals -->
+<!-- Adding Goals for the Current Week -->
+<div  class="modal fade"  bsModal #addgoal="bs-modal"   tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <button type="button" class="close" (click)="addgoal.hide()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                    </button>
+                    <p class="modal-title lead" id="myModalLabel">Add A Nightly Task</p>
+                </div>
+                <form method="post" role="form"  #addGoals='ngForm' (ngSubmit)="onSubmitGoal(addGoals,tempday)"> 
+                <div class="modal-body text-center">
+                   
+                        <div class="input-group center">
+                            <span class="input-group-addon" id="message"><span class="glyphicon glyphicon-pencil"></span></span>
+                            <textarea maxlength="40" class="form-control" name="weeklygoal" rows="1" [(ngModel)]="weeklygoal" required></textarea>
+                        </div>                                  
+                </div>
+                <div class="modal-footer">   
+                        
+                    <button type="button" class="btn btn-default" (click)="addgoal.hide()">Close</button>
+                    <button type="submit" class="btn btn-primary"  (click)="addgoal.hide()" [disabled]="!addGoals.valid" >Save</button>
+   
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- update current month goals -->
+<div  class="modal fade"  bsModal #currentweek="bs-modal"   tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <button type="button" class="close" (click)="currentweek.hide()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                    </button>
+                    <p class="modal-title lead" id="myModalLabel">Nightly Task</p>
+                </div>
+                <form method="post" role="form" #formGoal4='ngForm' (ngSubmit)="onSubmit(formGoal4,tempday)"> 
+                <div class="modal-body text-center">
+                    
+                    <p class="lead" *ngIf="tempday == 'goal1'">{{goal1}}</p>
+                    <p class="lead" *ngIf="tempday == 'goal2'">{{goal2}}</p>
+                    <p class="lead" *ngIf="tempday == 'goal3'">{{goal3}}</p>
+                    <p class="lead" *ngIf="tempday == 'goal4'">{{goal4}}</p>
+                    <p class="lead" *ngIf="tempday == 'goal5'">{{goal5}}</p>
+                    <p class="lead" *ngIf="tempday == 'goal6'">{{goal6}}</p>
+                    <p class="lead" *ngIf="tempday == 'goal7'">{{goal7}}</p>
+                    <p class="lead" *ngIf="tempday == 'goal8'">{{goal8}}</p>
+                    <p class="lead" *ngIf="tempday == 'goal9'">{{goal9}}</p>
+                    <p class="lead" *ngIf="tempday == 'goal10'">{{goal10}}</p>
+                    <p class="lead" *ngIf="tempday == 'goal11'">{{goal11}}</p>
+                    <p class="lead" *ngIf="tempday == 'goal12'">{{goal12}}</p>
+                    <p class="lead" *ngIf="tempday == 'goal13'">{{goal13}}</p>
+                    <p class="lead" *ngIf="tempday == 'goal14'">{{goal14}}</p>
+                    <p class="lead" *ngIf="tempday == 'goal15'">{{goal15}}</p>
+                    <div>
+                       
+                        <div *ngIf = "(((tempday == 'goal6')||(tempday == 'goal7')||(tempday == 'goal8')||(tempday == 'goal9')||(tempday == 'goal10'))&&(currentday==daycounter))">
+                            <div class="radio-inline" *ngFor="let prog of nextprog">
+                                <label class="radio-inline">
+                                    <input type="radio" name="prog" [(ngModel)]="user2.prog" 
+                                    [value]="prog.value" required>
+                                    {{prog.display}}
+                                </label>
+                            </div> 
+                        </div>
+                        <div *ngIf = "(((tempday == 'goal6')||(tempday == 'goal7')||(tempday == 'goal8')||(tempday == 'goal9')||(tempday == 'goal10'))&&(currentday !=daycounter))">
+                            <div class="radio-inline" *ngFor="let prog of currentprog">
+                                <label class="radio-inline">
+                                    <input type="radio" name="prog" [(ngModel)]="user2.prog" 
+                                    [value]="prog.value" required>
+                                    {{prog.display}}
+                                </label>
+                            </div> 
+                        </div>
+
+                        <div *ngIf = "(((tempday == 'goal1')||(tempday == 'goal2')||(tempday == 'goal3')||(tempday == 'goal4')||(tempday == 'goal5'))&&(currentday!=daycounter))">
+                            <div class="radio-inline" *ngFor="let prog of nextprog">
+                                <label class="radio-inline">
+                                    <input type="radio" name="prog" [(ngModel)]="user2.prog" 
+                                    [value]="prog.value" required>
+                                    {{prog.display}}
+                                </label>
+                            </div> 
+                        </div>
+                        <div *ngIf = "(((tempday == 'goal1')||(tempday == 'goal2')||(tempday == 'goal3')||(tempday == 'goal4')||(tempday == 'goal5'))&&(currentday ==daycounter))">
+                            <div class="radio-inline" *ngFor="let prog of currentprog">
+                                <label class="radio-inline">
+                                    <input type="radio" name="prog" [(ngModel)]="user2.prog" 
+                                    [value]="prog.value" required>
+                                    {{prog.display}}
+                                </label>
+                            </div> 
+                        </div>
+
+                        <div *ngIf = "(((tempday == 'goal11')||(tempday == 'goal12')||(tempday == 'goal13')||(tempday == 'goal14')||(tempday == 'goal15'))&&(currentday!=(daycounter-daynumber)))">
+                            <div class="radio-inline" *ngFor="let prog of nextprog">
+                                <label class="radio-inline">
+                                    <input type="radio" name="prog" [(ngModel)]="user2.prog" 
+                                    [value]="prog.value" required>
+                                    {{prog.display}}
+                                </label>
+                            </div> 
+                        </div>
+                        <div *ngIf = "(((tempday == 'goal11')||(tempday == 'goal12')||(tempday == 'goal13')||(tempday == 'goal14')||(tempday == 'goal15'))&&(currentday ==(daycounter-daynumber)))">
+                            <div class="radio-inline" *ngFor="let prog of currentprog">
+                                <label class="radio-inline">
+                                    <input type="radio" name="prog" [(ngModel)]="user2.prog" 
+                                    [value]="prog.value" required>
+                                    {{prog.display}}
+                                </label>
+                            </div> 
+                        </div>
+                        
+                    </div>                                             
+                </div>
+                <div class="modal-footer">              
+                    <button type="button" class="btn btn-default" (click)="currentweek.hide()">Close</button>
+                    <button type="button" class="btn btn-default" (click)="currentweek.hide()" (click)="goaledit.show()">Edit Task</button>
+                    <button type="submit" class="btn btn-primary"  (click)="currentweek.hide()" [disabled]="!formGoal4.valid" >Save</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Edit Goals -->
+<div  class="modal fade"  bsModal #goaledit="bs-modal"   tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <button type="button" class="close" (click)="goaledit.hide()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                    </button>
+                    <p class="modal-title lead" id="myModalLabel">Edit Nightly Task</p>
+                </div>
+                <form method="post" role="form" #editgoal='ngForm' (ngSubmit)="onEditSubmitGoal(editgoal,tempday)"> 
+                <div class="modal-body text-center">
+                    <p class="lead" *ngIf="tempday == 'goal1'">{{goal1}}</p>
+                    <p class="lead" *ngIf="tempday == 'goal2'">{{goal2}}</p>
+                    <p class="lead" *ngIf="tempday == 'goal3'">{{goal3}}</p>
+                    <p class="lead" *ngIf="tempday == 'goal4'">{{goal4}}</p>
+                    <p class="lead" *ngIf="tempday == 'goal5'">{{goal5}}</p>
+                    <p class="lead" *ngIf="tempday == 'goal6'">{{goal6}}</p>
+                    <p class="lead" *ngIf="tempday == 'goal7'">{{goal7}}</p>
+                    <p class="lead" *ngIf="tempday == 'goal8'">{{goal8}}</p>
+                    <p class="lead" *ngIf="tempday == 'goal9'">{{goal9}}</p>
+                    <p class="lead" *ngIf="tempday == 'goal10'">{{goal10}}</p>
+                    <p class="lead" *ngIf="tempday == 'goal11'">{{goal11}}</p>
+                    <p class="lead" *ngIf="tempday == 'goal12'">{{goal12}}</p>
+                    <p class="lead" *ngIf="tempday == 'goal13'">{{goal13}}</p>
+                    <p class="lead" *ngIf="tempday == 'goal14'">{{goal14}}</p>
+                    <p class="lead" *ngIf="tempday == 'goal15'">{{goal15}}</p>
+                     <div class="input-group center">
+                            <span class="input-group-addon" id="message"><span class="glyphicon glyphicon-pencil"></span></span>
+                            <textarea maxlength="40" class="form-control" placeholder="" name="weeklygoal" rows="1" [(ngModel)]="weeklygoal" required></textarea>
+                    </div> 
+                                                              
+                </div>
+                <div class="modal-footer">              
+                    <button type="button" class="btn btn-default" (click)="goaledit.hide()">Close</button>
+                    <button type="button" class="btn btn-danger" (click)="goaledit.hide()" (click)="removegoal(tempday)">Remove Task</button>
+                    <button type="submit" class="btn btn-primary"  (click)="goaledit.hide()" [disabled]="!editgoal.valid">Save</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- update previous month goals -->
+<div  class="modal fade"  bsModal #oldweek="bs-modal"   tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <button type="button" class="close" (click)="oldweek.hide()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                    </button>
+                    <p class="modal-title lead" id="myModalLabel">Nightly Task</p>
+                </div>
+                <form method="post" role="form" #formGoal3='ngForm' (ngSubmit)="onSubmit(formGoal3,tempday)"> 
+                <div class="modal-body text-center">
+                    
+                    <p class="lead" *ngIf="tempday == 'goal1'">{{goal1}}</p>
+                    <p class="lead" *ngIf="tempday == 'goal2'">{{goal2}}</p>
+                    <p class="lead" *ngIf="tempday == 'goal3'">{{goal3}}</p>
+                    <p class="lead" *ngIf="tempday == 'goal4'">{{goal4}}</p>
+                    <p class="lead" *ngIf="tempday == 'goal5'">{{goal5}}</p>
+                    <p class="lead" *ngIf="tempday == 'goal6'">{{goal6}}</p>
+                    <p class="lead" *ngIf="tempday == 'goal7'">{{goal7}}</p>
+                    <p class="lead" *ngIf="tempday == 'goal8'">{{goal8}}</p>
+                    <p class="lead" *ngIf="tempday == 'goal9'">{{goal9}}</p>
+                    <p class="lead" *ngIf="tempday == 'goal10'">{{goal10}}</p>
+                    <p class="lead" *ngIf="tempday == 'goal11'">{{goal11}}</p>
+                    <p class="lead" *ngIf="tempday == 'goal12'">{{goal12}}</p>
+                    <p class="lead" *ngIf="tempday == 'goal13'">{{goal13}}</p>
+                    <p class="lead" *ngIf="tempday == 'goal14'">{{goal14}}</p>
+                    <p class="lead" *ngIf="tempday == 'goal15'">{{goal15}}</p>
+                    <div>
+                      <div class="radio-inline" *ngFor="let prog of progession">
+                            <label class="radio-inline">
+                                <input type="radio" name="prog" [(ngModel)]="user1.prog" 
+                                [value]="prog.value"required>
+                                {{prog.display}}
+                            </label>
+                        </div> 
+                    </div>                                             
+                </div>
+                <div class="modal-footer">              
+                    <button type="button" class="btn btn-default" (click)="oldweek.hide()">Close</button>
+                    <button type="submit" class="btn btn-primary"  (click)="oldweek.hide()" [disabled]="!formGoal3.valid" >Save</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

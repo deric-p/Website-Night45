@@ -1,0 +1,315 @@
+
+<p class="text-center">
+    <a href="#goals" *ngIf="(projectcounter > 1)" (click)="previousgoal()" class="glyphicon glyphicon-chevron-left text-black"></a>
+    {{currentlongtermgoal}}
+    <a href="#goals"*ngIf="(projectcounter < projectname)" (click)="nextgoal()" class="glyphicon glyphicon-chevron-right text-black"></a>
+</p>
+
+<!-- button for curtain date and add long term goal -->
+<div *ngIf="(newuser)&&(projectname==projectcounter)">
+    <div class="panel panel-default well text-center ">
+        <div  class="panel-body ">
+            <button type="button" (click)="addgoal.show()"class="btn btn-primary">Add A Longterm Goal</button>
+        </div>
+    </div>
+</div>
+<!-- Shows the Goals for the current-->
+<div *ngIf="(currentuser)">
+    <div class="panel panel-default bg-question  text-center ">
+        <div  class="panel-body ">
+            <i>Longterm Goal:</i>
+            <br>
+            {{longtermgoal}}
+            <br><br>
+            <i>Will Be Achieved By:</i>
+            <br>
+            {{daterequired | date}}
+            <br><br>
+            <i>How This Goal Will be Achieved:</i>
+            <br>
+            {{how}}
+            <br><br>
+            <i>Time Left to Achieve This Goal:</i>
+            <br>
+            {{timelefts}}
+           
+            {{minutesleft}}
+            
+            <br><br>
+            <div *ngIf="(datecreated+3888000000)>datenow" class="text-center">
+            <a href="#goals" (click)="editgoal.show()" class="glyphicon glyphicon-question-sign text-black"></a>
+            </div>
+            <div *ngIf="(datecreated+3888000000)<datenow" class="text-center">
+            <a href="#goals" (click)="currentgoal.show()" class="glyphicon glyphicon-question-sign text-black"></a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Shows the Goals for the previous-->
+<div *ngIf="(existinguser)">
+    <!-- status is still in question -->
+    <div *ngIf="status=='q'" class="panel panel-default bg-question text-center">
+        <div  class="panel-body ">
+          <i>Longterm Goal:</i>
+            <br>
+            {{longtermgoal}}
+            <br><br>
+            <i>Had To Be Achieved By:</i>
+            <br>
+            {{daterequired | date}}
+            <br><br>
+            <i>How This Goal Will be Achieved:</i>
+            <br>
+            {{how}}
+            <br><br>
+            <div class="text-center">
+            <a href="#goals" (click)="oldgoal.show()" class="glyphicon glyphicon-question-sign text-black"></a>
+            </div>
+        </div>
+    </div>
+    <!-- success -->
+    <div *ngIf="status=='y'" class="panel panel-success text-center">
+        <div  class="panel-body bg-success ">
+            <i>Longterm Goal:</i>
+            <br>
+            {{longtermgoal}}
+            <br><br>
+            <i>Was Achieved By or Before:</i>
+            <br>
+            {{daterequired | date}}
+            <br><br>
+            <i>How This Goal Was Achieved:</i>
+            <br>
+            {{how}}
+            <br><br>
+            <div class="text-center">
+            <span class="glyphicon glyphicon-ok-sign"></span>
+            </div>
+        </div>
+    </div>
+    <!-- failure -->
+    <div *ngIf="status=='n'" class="panel panel-danger text-center">
+        <div  class="panel-body bg-danger">
+            <i>Longterm Goal:</i>
+            <br>
+            {{longtermgoal}}
+            <br><br>
+            <i>Was Not Achieved By:</i>
+            <br>
+            {{daterequired | date}}
+            <br><br>
+            <i>How This Goal Would Have Been Achieved:</i>
+            <br>
+            {{how}}
+            <br><br>
+            <div class="text-center">
+           <span class="glyphicon glyphicon-remove-sign"></span>
+           </div>
+        </div>
+    </div>
+</div>
+
+<!-- add goal -->
+<div  class="modal fade"  bsModal #addgoal="bs-modal"   tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <button type="button" class="close" (click)="addgoal.hide()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                    </button>
+                    <p class="modal-title lead" id="myModalLabel">Add A Longterm Goal</p>
+                </div>
+                <form method="post" role="form" #formGoal1='ngForm' (ngSubmit)="onSubmit(formGoal1)"> 
+                <div class="modal-body text-center">
+                    <div class="form-group">
+                        <label for="goal">Longterm Goal:</label>
+                        <div class="input-group center">
+                            <span class="input-group-addon" id="goal"><span class="glyphicon glyphicon-fire"></span></span>
+                            <input type="text" maxlength="75" class="form-control" name="goal" placeholder="" value="" aria-describedby="basic-addon1" (ngModel)="goal" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="how">How Do You Plan To Achieve This Goal:</label>
+                        <div class="input-group center">
+                            <span class="input-group-addon" id="how"><span class="glyphicon glyphicon-hand-right"></span></span>
+                            <input type="text" maxlength="75" class="form-control" name="how" placeholder="" value="" aria-describedby="basic-addon1" (ngModel)="how" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="datetobeachieved">The Date This Goal Will Be Achieved By:</label>
+                        <p class="text-danger">{{dateerror}}</p>
+                        <div class="input-group center">
+                            <span class="input-group-addon" id="how"><span class="glyphicon glyphicon-calendar"></span></span>
+                            <input class="form-control" type="date" value="" id="datetobeachieved" name="dt" [(ngModel)]="dt" required>  
+                        </div>
+                    </div> 
+                     
+                </div>
+                <div class="modal-footer">              
+                    <button type="button" class="btn btn-default" (click)="addgoal.hide()">Close</button>
+                    <button type="submit" class="btn btn-primary"   [disabled]="!formGoal1.valid" >Save</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Mark Goals As Complete and etc -->
+<div  class="modal fade"  bsModal #currentgoal="bs-modal"   tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <button type="button" class="close" (click)="currentgoal.hide()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                    </button>
+                    <p class="modal-title lead" id="myModalLabel">Longterm Goal</p>
+                </div>
+                <form method="post" role="form" #formGoal2='ngForm' (ngSubmit)="onStatusSubmit(formGoal2)"> 
+                <div class="modal-body text-center">
+                     <p class="lead" >{{longtermgoal}}</p>
+                    <div>
+                        <div class="radio-inline" *ngFor="let prog of currentprogession">
+                            <label class="radio-inline">
+                                <input type="radio" name="status" [(ngModel)]="user.prog" 
+                                [value]="prog.value" required>
+                                {{prog.display}}
+                            </label>
+                        </div>
+                    </div>               
+                </div>
+                <div class="modal-footer">              
+                    <button type="button" class="btn btn-default" (click)="currentgoal.hide()">Close</button>
+                    <button type="submit" class="btn btn-primary"   [disabled]="!formGoal2.valid" >Save</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Confirm Screens-->
+<div  class="modal fade"  bsModal #confirmscreen="bs-modal"   tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <button type="button" class="close" (click)="confirmscreen.hide()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                    </button>
+                    <p class="modal-title lead" id="myModalLabel">Confirm Longterm Goal</p>
+                </div>
+                <form method="post" role="form" #formGoal3='ngForm' (ngSubmit)="onConfirmSubmit(formGoal2,tempstatus)"> 
+                <div class="modal-body text-center">
+                     
+                     <p *ngIf="tempstatus=='y'" class="lead">Confirm that: {{longtermgoal}} is completed</p>
+                     <p *ngIf="tempstatus=='n'" class="lead">Confirm that: {{longtermgoal}} was not completed</p>
+                    <div>
+                        <div class="radio-inline" *ngFor="let prog of comfirm">
+                            <label class="radio-inline">
+                                <input type="radio" name="status" [(ngModel)]="user.prog" 
+                                [value]="prog.value" required>
+                                {{prog.display}}
+                            </label>
+                        </div>
+                    </div>               
+                </div>
+                <div class="modal-footer">              
+                    <button type="button" class="btn btn-default" (click)="confirmscreen.hide()">Close</button>
+                    <button type="submit" class="btn btn-primary"   [disabled]="!formGoal3.valid" >Save</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Congraduations-->
+<div  class="modal fade"  bsModal #congrad="bs-modal"   tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <button type="button" class="close" (click)="congrad.hide()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                    </button>
+                    <p class="modal-title lead" id="myModalLabel" *ngIf="tempstatus == 'n'">There Is Still Hope!</p>
+                    <p class="modal-title lead" id="myModalLabel" *ngIf="tempstatus == 'y'">Congratulations!</p>
+                </div>
+             
+                <div class="modal-body text-center">
+                     
+                     <p *ngIf="tempstatus=='y'" >All those long hard nights have paid off and {{longtermgoal}} was a achieved.</p>
+                     <p *ngIf="tempstatus=='n'" >Even though this goal was not completed on time, you can still try again, remember never give up!</p>
+                                 
+                </div>
+                <div class="modal-footer">              
+                    <button type="button" class="btn btn-default" (click)="congrad.hide()">Close</button>
+   
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Mark Goals As Complete and for old goals -->
+<div  class="modal fade"  bsModal #oldgoal="bs-modal"   tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <button type="button" class="close" (click)="oldgoal.hide()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                    </button>
+                    <p class="modal-title lead" id="myModalLabel">Longterm Goal</p>
+                </div>
+                <form method="post" role="form" #formGoal4='ngForm' (ngSubmit)="onStatusSubmit(formGoal4)"> 
+                <div class="modal-body text-center">
+                     <p class="lead" >{{longtermgoal}}</p>
+                    <div>
+                        <div class="radio-inline" *ngFor="let prog of progession">
+                            <label class="radio-inline">
+                                <input type="radio" name="status" [(ngModel)]="user.prog" 
+                                [value]="prog.value" required>
+                                {{prog.display}}
+                            </label>
+                        </div>
+                    </div>               
+                </div>
+                <div class="modal-footer">              
+                    <button type="button" class="btn btn-default" (click)="oldgoal.hide()">Close</button>
+                    <button type="submit" class="btn btn-primary"   [disabled]="!formGoal4.valid" >Save</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Edit Goals Or Remove it -->
+<div  class="modal fade"  bsModal #editgoal="bs-modal"   tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <button type="button" class="close" (click)="editgoal.hide()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                    </button>
+                    <p class="modal-title lead" id="myModalLabel">Edit Longterm Goal</p>
+                </div>
+                <form method="post" role="form" #FormGoal5='ngForm' (ngSubmit)="onEditSubmit(FormGoal5)"> 
+                <div class="modal-body text-center">
+
+                    <div class="form-group">
+                        <label for="goal">{{longtermgoal}}</label>
+                        <div class="input-group center">
+                            <span class="input-group-addon" id="goal"><span class="glyphicon glyphicon-fire"></span></span>
+                            <input type="text" maxlength="75" class="form-control" name="goal" placeholder="" value="" aria-describedby="basic-addon1" (ngModel)="goal" required>
+                        </div>
+                    </div>
+                   
+                   <p>You Only Have Until: {{datetoedit|date:'longDate'}} to Edit or Remove This Goal</p>
+                     
+                </div>
+                <div class="modal-footer">              
+                    <button type="button" class="btn btn-default" (click)="editgoal.hide()">Close</button>
+                    <button type="button" class="btn btn-danger" (click)="editgoal.hide()" (click)="removegoal()">Remove Goal</button>
+                    <button type="submit" class="btn btn-primary"  (click)="editgoal.hide()"  [disabled]="!FormGoal5.valid" >Save</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

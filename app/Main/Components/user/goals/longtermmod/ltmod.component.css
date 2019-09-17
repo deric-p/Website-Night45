@@ -1,0 +1,13 @@
+.navbar-padding {
+   padding-top:60px;
+    margin-left:auto;
+	margin-right:auto;
+	width:98%;
+}
+.img-alteration{
+	max-width: 50%;
+	max-height: 50%;
+	display: block;
+    margin-left: auto;
+    margin-right: auto 
+}

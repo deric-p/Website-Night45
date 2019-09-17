@@ -1,0 +1,33 @@
+<div class="column-padding">
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <h1 class="text-center headerfont">Feedback</h1>
+            <div class="panel panel-inverse">
+                <div *ngIf="(!send)"class="panel-body text-center headerfont incsize">
+                    <form method="post" role="form"  #formData='ngForm' (ngSubmit)="onSubmit(formData)">
+                        <div class="form-group">
+                            <label for="regular">Would you use Night45 on a regular basis? and why?</label>
+                             <textarea class="form-control" name="regular" rows="3" [(ngModel)]="regular" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="feature">What features would make Night45 better?</label>
+                             <textarea class="form-control" name="feature" rows="3" [(ngModel)]="feature" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="track">Does Night45 help you keep track and complete your goals?</label>
+                             <textarea class="form-control" name="track" rows="3" [(ngModel)]="track" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="suggestion">Suggestions or Comments?</label>
+                             <textarea class="form-control" name="suggestion" rows="3" [(ngModel)]="suggestion"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" [disabled]="!formData.valid">Submit</button>
+                    </form> 
+                </div>
+                <div *ngIf="(send)"class="panel-body text-center headerfont incsize">
+                    Thank You For Your Feedback!
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

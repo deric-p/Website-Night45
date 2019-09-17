@@ -1,0 +1,106 @@
+<p class="text-center">
+    <a href="#monthlyaccomplishs"(click)="previousmonth()" *ngIf ="((joindate < datecounter))" class="glyphicon glyphicon-chevron-left text-black"></a>
+    {{datecounter| date}}
+    
+    <a href="#monthlyaccomplishs"(click)="nextmonth()" *ngIf ="(datecounter+daynumber)<=currentmonth" class="glyphicon glyphicon-chevron-right text-black"></a>
+</p>
+<div *ngIf="(!thismonth) && datecounter == currentmonth">
+    <div class="panel well panel-default text-center">
+        <div class="panel-body">
+             <button type="button" id="new-night-btn"  (click)="addaccomplish.show()"class="btn btn-primary">Add Something Positive That Occured Today</button>
+        </div>
+    </div>
+</div>
+<!-- old month -->
+<div *ngIf="(!thismonth) && currentmonth != datecounter">
+    <div class="panel well panel-default text-center">
+        <div class="panel-body">
+             No Positives Were Noted For This Day
+        </div>
+    </div>
+</div>
+
+<!-- old month accomplishs -->
+<div *ngIf="(thismonth)&&(datecounter!=currentmonth)">
+    <table class="table table-striped" >
+        <tr *ngFor="let accomplish of currentaccomplishs">
+            <td *ngIf="accomplish.show == true">{{accomplish.accomplish}}</td>
+        </tr>
+   </table>
+</div>
+<!-- current month accomplishs -->
+<div class="showplus"*ngIf="(thismonth)&&(datecounter==currentmonth)">
+        <table class="table table-hover" >
+            <tr *ngFor="let accomplish of currentaccomplishs">
+            <td *ngIf="accomplish.show == true" (click)="accomplishedit.show()" (click)="monthpicker(accomplish.name)">{{accomplish.accomplish}}</td>
+            </tr>
+        </table>
+        <div class="text-center plus-sign" *ngIf ="(datecounter==currentmonth)&&(!accomplish1check||!accomplish2check||!accomplish3check)&&thismonth">
+         <a href="#monthlyaccomplishs"(click)="addaccomplish.show()"  class="glyphicon glyphicon-plus-sign text-black text-center"></a>
+        </div>
+</div>
+ 
+
+<!-- Adding accomplishs for the Current Week -->
+<div  class="modal fade"  bsModal #addaccomplish="bs-modal"   tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <button type="button" class="close" (click)="addaccomplish.hide()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                    </button>
+                    <p class="modal-title lead" id="myModalLabel">Add Something Positive That Occured Today</p>
+                </div>
+                <form method="post" role="form"  #addaccomplishs='ngForm' (ngSubmit)="onSubmitaccomplish(addaccomplishs)"> 
+                <div class="modal-body text-center">
+                   
+                        <div class="input-group center">
+                            <span class="input-group-addon" id="message"><span class="glyphicon glyphicon-pencil"></span></span>
+                            <textarea maxlength="40" class="form-control" name="accomplishment" rows="1" [(ngModel)]="accomplishment" required></textarea>
+                        </div>                                  
+                </div>
+                <div class="modal-footer">   
+                        
+                    <button type="button" class="btn btn-default" (click)="addaccomplish.hide()">Close</button>
+                    <button type="submit" class="btn btn-primary"  (click)="addaccomplish.hide()" [disabled]="!addaccomplishs.valid" >Save</button>
+   
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit accomplishs -->
+<div  class="modal fade"  bsModal #accomplishedit="bs-modal"   tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <button type="button" class="close" (click)="accomplishedit.hide()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                    </button>
+                    <p class="modal-title lead" id="myModalLabel">Happiness Advantage</p>
+                </div>
+                <form method="post" role="form" #editaccomplish='ngForm' (ngSubmit)="onEditSubmitaccomplish(editaccomplish,tempmonth)"> 
+                <div class="modal-body text-center">
+                    <p class="lead" *ngIf="tempmonth == 'accomplish1'">{{accomplish1}}</p>
+                    <p class="lead" *ngIf="tempmonth == 'accomplish2'">{{accomplish2}}</p>
+                    <p class="lead" *ngIf="tempmonth == 'accomplish3'">{{accomplish3}}</p>
+                    <p class="lead" *ngIf="tempmonth == 'accomplish4'">{{accomplish4}}</p>
+                    <p class="lead" *ngIf="tempmonth == 'accomplish5'">{{accomplish5}}</p>
+                     <div class="input-group center">
+                            <span class="input-group-addon" id="message"><span class="glyphicon glyphicon-pencil"></span></span>
+                            <textarea maxlength="40" class="form-control" placeholder="" name="accomplishment" rows="1" [(ngModel)]="accomplishment" required></textarea>
+                    </div> 
+                                                              
+                </div>
+                <div class="modal-footer">              
+                    <button type="button" class="btn btn-default" (click)="accomplishedit.hide()">Close</button>
+                    <button type="button" class="btn btn-danger" (click)="accomplishedit.hide()" (click)="removeaccomplish(tempmonth)">Remove</button>
+                    <button type="submit" class="btn btn-primary"  (click)="accomplishedit.hide()" [disabled]="!editaccomplish.valid">Save</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,97 @@
+.navbar{
+		
+	    margin-left:auto;
+		margin-right:auto;
+		
+        opacity:0.85;
+        font-family:'fabriknormal';
+        font-size:17px;
+}
+.showing{
+    display:block;
+}
+.stuff{
+    padding-top:60px;
+    min-height:140px;
+    padding-bottom:40px;
+}
+.navbar-default {
+  
+  background-image: none;
+  background-repeat: no-repeat;
+  border: 0;
+ } 
+.navbar-brand { 
+	
+    font-size:17px;
+    color:black;
+    font-family:'fabriknormal';
+	
+}
+#brand-image{
+	height:40px;
+	
+}
+/* link */
+.navbar-default .navbar-nav > li > a {
+    color: #000;
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+    color: #333;
+}
+
+@media (min-width: 768px){
+    .navbar-center{
+        float:none;
+        margin: 0 auto;
+        display: table;
+        table-layout: fixed;
+    }
+    .brand{
+        display:none;
+    }
+    .showing{
+    display:none;
+}
+}
+.navbar-fixed-top{
+     padding-top: 0px;
+}
+
+.vertical-alignment-helper {
+    display:table;
+    height: 100%;
+    width: 100%;
+    pointer-events:none;
+}
+.vertical-align-center {
+    /* To center vertically */
+    display: table-cell;
+    vertical-align: middle;
+    pointer-events:none;
+}
+.modal-content {
+    /* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
+    width:inherit;
+    height:inherit;
+    /* To center horizontally */
+    margin: 0 auto;
+    pointer-events:all;
+}
+.tags{
+     cursor:pointer;
+     background-color: transparent;
+     color:grey;
+
+}
+.tags:hover {
+    color:black;
+}
+.errortext{
+
+    display:inline-block;
+    color: red;
+    font-size: 85%;
+    text-align: center;
+}

@@ -1,0 +1,55 @@
+
+
+<div class="bg-signup" id="signup">
+    <h1 class="headtext text-center">Sign Up</h1>
+    <br>
+    <div class="row">
+        <div class="col-sm-4 col-sm-offset-4">
+             <form method="post" role="form" #formData='ngForm' (ngSubmit)="onSubmit(formData)" class="text-center">
+                <div class="form-group ">
+                    <p for="firstname">First Name:</p>
+                    <input type="text" class="form-control" name="firstname" placeholder="" value="" aria-describedby="basic-addon1" (ngModel)="firstname" required>     
+                </div>
+                <div class="form-group">
+                    <p for="lastname">Last Name:</p>
+
+                        <input type="text" class="form-control" name="lastname" placeholder="" value="" aria-describedby="basic-addon1" (ngModel)="lastname" required>
+                   
+                </div>
+                <div class="form-group ">
+                    <p for="email">Email: </p><p *ngIf="emailerror!=''"class=errortext>{{emailerror}}</p>
+
+                        <input type="email" class="form-control" name="email" placeholder="" value="" aria-describedby="basic-addon1" (ngModel)="email" required>
+                  
+                </div>
+                <div class="form-group ">
+                    <p for="password">Password: </p><p *ngIf="passworderror!=''"class=errortext>{{passworderror}}</p>
+
+                        <input type="password" class="form-control" name="password" placeholder="" value="" aria-describedby="basic-addon1" (ngModel)="password" required>
+                 
+                </div>
+                <div class="form-group">
+                    <p for="repassword">Retype Password: </p><p *ngIf="passworderror!=''"class=errortext>{{passworderror}}</p>
+
+                        <input type="password" class="form-control" name="repassword" placeholder="" value="" aria-describedby="basic-addon1" (ngModel)="repassword" required>
+                    
+                </div>
+                 <button type="submit" class="btn btn-primary" [disabled]="!formData.valid">Sign Up</button>
+            </form>
+        </div>
+    </div>
+</div>
+<footer class="text-center bg-footer">
+   <a class="text-black" href="mailto:help@night45.com" target="_top">Help@Night45.com</a>
+   <div class="footer-social-icons">
+    
+    <ul class="social-icons">
+        
+        <li><a href="" class="social-icon"> <i class="fa fa-twitter"></i></a></li>
+       
+      
+    
+        <li><a href="" class="social-icon"> <i class="fa fa-google-plus"></i></a></li>
+    </ul>
+</div>
+</footer>

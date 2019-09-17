@@ -1,0 +1,63 @@
+.text-white{
+    color:white;
+}
+.text-black{
+    color:black;
+}
+.bg-question{
+    background-color:#F8F8FF;
+}
+.vertical-alignment-helper {
+    display:table;
+    height: 100%;
+    width: 100%;
+    pointer-events:none;
+}
+.vertical-align-center {
+    /* To center vertically */
+    display: table-cell;
+    vertical-align: middle;
+    pointer-events:none;
+}
+.modal-content {
+    /* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
+    width:inherit;
+    height:inherit;
+    /* To center horizontally */
+    margin: 0 auto;
+    pointer-events:all;
+}
+.tags{
+     cursor:pointer;
+     background-color: transparent;
+     color:grey;
+
+}
+.tags:hover {
+    color:black;
+}
+.errortext{
+
+    display:inline-block;
+    color: red;
+    font-size: 85%;
+    text-align: center;
+}
+.glyphicon-question-sign,.glyphicon-ok-sign,.glyphicon-remove-sign,.glyphicon-plus-sign {
+    font-size: 20px;
+}
+.plus-sign{
+    display: none;
+}
+.showplus:hover .plus-sign{
+    display: block;
+}
+.btn-secondary{
+    background-color:#333;
+    color:white;
+}
+.btn-secondary:hover, .btn-secondary:focus, .btn-secondary:active, .btn-secondary.active, .open>.dropdown-toggle.btn-secondary {
+
+    background-color: #444;
+    border-color: #444; /*set the color you want here*/
+}
